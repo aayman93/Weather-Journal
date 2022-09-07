@@ -19,7 +19,7 @@ app.use(express.static('website'));
 
 // Setup Server
 const port = 3000;
-const server = app.listen(port, listening)
+const server = app.listen(port, listening);
 
 // Callback to debug
 function listening() {
@@ -31,6 +31,8 @@ app.post('/save', (req, res) => {
     projectData['temp'] = req.body.temp;
     projectData['date'] = req.body.date;
     projectData['feeling'] = req.body.feeling;
+
+    res.send(projectData);
 });
 
 // Initialize all route with a callback function
