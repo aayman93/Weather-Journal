@@ -31,8 +31,6 @@ app.post('/save', (req, res) => {
     projectData['temp'] = req.body.temp;
     projectData['date'] = req.body.date;
     projectData['feeling'] = req.body.feeling;
-
-    res.send(projectData);
 });
 
 // Initialize all route with a callback function

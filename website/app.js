@@ -31,7 +31,10 @@ function performAction() {
             temp: data,
             date: newDate,
             feeling: feeling
-        })
+        });
+    })
+    .then(function() {
+        retrieveData();
     });
 };
 
@@ -54,7 +57,7 @@ const getCurrentTemp = async(baseUrl, zipCode, apiKey) => {
 
 /* Function to POST data */
 const postWeatherData = async(url = '', data = {}) => {
-    const response = await fetch(url, {
+    await fetch(url, {
         method:'POST',
         credentials: 'same-origin',
         headers: {
@@ -62,11 +65,21 @@ const postWeatherData = async(url = '', data = {}) => {
         },
         body: JSON.stringify(data)
     });
+}
 
+/* Function to GET Project Data */
+const retrieveData = async() => {
+    const request = await fetch('/all');
+    
     try {
-        const result = await response.json();
-        console.log(result);
-    } catch (error) {
+        // Transform into JSON
+        const allData = await request.json();
+        // Write updated data to DOM elements
+        document.getElementById('temp').innerHTML = Math.round(allData.temp)+ ' degrees';
+        document.getElementById('content').innerHTML = allData.feeling;
+        document.getElementById("date").innerHTML =allData.date;
+    }
+    catch(error) {
         console.log("error", error);
     }
 }
